@@ -8,7 +8,6 @@ const ListPosts = ({url}) => {
 
     useEffect(()=>{
         buscar(url, setPosts)
-        console.log(posts)
     },[url])
 
     

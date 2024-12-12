@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react"
 import "../assets/css/componentes/card.css"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { buscar } from "../api/api"
 
 const Post = () => {
     const [post, setPost] = useState({})
 
     const {id} = useParams()    //capturamos los parametros enviados por la url
-
+    const navigate = useNavigate()
     useEffect(()=>{
-        buscar(`posts/${id}`, setPost)
+        //buscar retorna una promesa, asi que usamos catch para redireccionar en caso de no encontrar un post
+        buscar(`posts/${id}`, setPost).catch(()=>{ navigate("/not-found")}) //redireccionamos a not-found el cual a la vez accedera al path comodin *
     }, [id])    //el hook se ejecutara cada vez que cambie el id
 
     return (
